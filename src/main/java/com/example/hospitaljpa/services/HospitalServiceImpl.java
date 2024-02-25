@@ -11,9 +11,11 @@ import com.example.hospitaljpa.repositories.RendezVousRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Transactional
-public class IHospitalServiceImpl implements IHospitalService {
+public class HospitalServiceImpl implements IHospitalService {
     /*
     * On initialise toutes les interfaces pour faire l'injection de dependance
     * soit par @Autowird ou par le constructeur pour instancier tous les repository
@@ -24,7 +26,7 @@ public class IHospitalServiceImpl implements IHospitalService {
     private RendezVousRepository rendezVousRepository ;
     private ConsultationRepository consultationRepository ;
 
-    public IHospitalServiceImpl(
+    public HospitalServiceImpl(
             PatientRepository patientRepository,
             MedecinRepository medecinRepository,
             RendezVousRepository rendezVousRepository,
@@ -48,6 +50,8 @@ public class IHospitalServiceImpl implements IHospitalService {
 
     @Override
     public RendezVous saveRDV(RendezVous rendezVous) {
+        //genere une chaine de caractere aleatoire UUID
+        rendezVous.setId(UUID.randomUUID().toString());
         return rendezVousRepository.save(rendezVous);
     }
 
